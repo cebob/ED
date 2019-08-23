@@ -58,8 +58,16 @@ int remover(int pos){
 			fim = aux;
 			free(lixo);
 		}else{
-			
+			NO * aux;
+			int i;
+			for(i=0;i<=pos-1;i++){
+				aux = aux->prox;
+			}	
+			NO * lixo = aux->prox;
+			aux->prox = aux->prox->prox;
+			free(lixo);
 		}
+		tam--;
 	}
 	
 }
@@ -81,6 +89,8 @@ int main(){
 	adicionar(7,3);
 	adicionar(10,0);
 	adicionar(20,1);
+	imprimir();
+	remover(0);
 	imprimir();
 	
 	return 0;
