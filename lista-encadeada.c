@@ -60,7 +60,7 @@ int remover(int pos){
 		}else{
 			NO * aux;
 			int i;
-			for(i=0;i<=pos-1;i++){
+			for(i=0;i<=pos-2;i++){
 				aux = aux->prox;
 			}	
 			NO * lixo = aux->prox;
