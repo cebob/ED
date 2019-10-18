@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no{
+	int pos;
+	struct no * prox; 
+	struct no * ant; 
+}NO;
+
+
+NO * inicio = NULL;
+int tam = 0;
+int pulos = 0;
+
+void adicionar(){
+	printf("Digite o número de pessoas e o número de pulos: ");
+	scanf("%d %d",&tam, &pulos);
+	int i;
+	for(i=1;i<=tam;i++){
+		NO * novo = (NO*) malloc(sizeof(NO));
+		novo->pos = i;
+		novo->prox = NULL; 
+		novo->ant = NULL; 
+		if(inicio == NULL){
+			inicio = novo;
+			novo->prox = novo;
+			novo->ant = novo;
+		}else{
+			novo->prox = inicio;
+			novo->ant = inicio->ant;
+			inicio->ant->prox = novo;
+			inicio->ant = novo;
+		}
+	}
+}
+
+int remover(){
+	
+	int i;
+	NO * aux = inicio;
+	for(i=1;i<=tam && tam != 1 ;i++){
+		if(i%(1+pulos) == 0){
+			NO * lixo = aux;
+			aux->ant->prox = aux->prox;
+			aux->prox->ant = aux->ant;
+			aux = aux->prox;
+			free(lixo);
+			tam--;
+			i=1;
+			aux = aux->ant;
+		}
+		aux = aux->prox;
+	}
+		
+}
+
+int main(){
+	
+	adicionar();
+	
+	printf("%d \n", remover());
+	
+	int i;
+	NO * aux = inicio;
+	for(i=1;i<=tam;i++){
+		printf("%d ", aux->pos);
+		aux = aux->prox;
+	}
+	
+}
